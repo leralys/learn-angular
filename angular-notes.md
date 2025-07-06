@@ -116,3 +116,50 @@ this.cancel.emit(); // no payload
 | ------------------- | ----------------- | --------------------------- |
 | ✅ Yes              | Yes               | `(add)="onAddTask($event)"` |
 | ❌ No               | No                | `(cancel)="onCancel()"`     |
+
+---
+
+## 🧩 Content Projection (Like `children` in React)
+
+Content Projection in Angular is similar to how React uses `children` to pass nested content into a component.
+
+### 🟦 React Example
+
+```jsx
+function Card({ children }) {
+  return <div className="card">{children}</div>;
+}
+
+// Usage
+<Card>
+  <h2>Hello</h2>
+  <p>Details</p>
+</Card>;
+```
+
+### 🟥 Angular Equivalent
+
+**card.component.html**
+
+```html
+<div class="card">
+  <ng-content></ng-content>
+</div>
+```
+
+**parent.component.html**
+
+```html
+<app-card>
+  <h2>Hello</h2>
+  <p>Details</p>
+</app-card>
+```
+
+### 🧠 Summary
+
+| Concept          | React                                | Angular                            |
+| ---------------- | ------------------------------------ | ---------------------------------- |
+| Slot for content | `children` prop                      | `<ng-content></ng-content>`        |
+| Custom layout    | JSX                                  | Angular template                   |
+| Content passed   | Between `<Component>...</Component>` | Between `<app-comp>...</app-comp>` |
