@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
+import { Component } from '@angular/core';
 
 import { DUMMY_USERS } from './dummy-users';
 import { HeaderComponent } from './header/header.component';

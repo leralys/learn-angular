@@ -1,18 +1,21 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { NewTaskComponent } from './new-task/new-task.component';
 import { TaskComponent } from './task/task.component';
-import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
-  imports: [TaskComponent, NgFor],
+  imports: [TaskComponent, NewTaskComponent, NgFor, NgIf],
 })
 export class TasksComponent {
-  // props
+  // props that component receives
   @Input({ required: true }) userId!: string;
   @Input({ required: true }) name!: string;
+
+  isAddingTask = false;
 
   // state
   tasks = [
@@ -48,5 +51,9 @@ export class TasksComponent {
 
   onCompleteTask(id: string) {
     this.tasks = this.tasks.filter((task) => task.id !== id);
+  }
+
+  onStartAddTask() {
+    this.isAddingTask = true;
   }
 }
