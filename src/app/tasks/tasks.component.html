@@ -1,4 +1,10 @@
-<app-new-task *ngIf="isAddingTask" (cancel)="onToggleAddTask()" />
+<app-new-task
+  *ngIf="isAddingTask"
+  (cancel)="onToggleAddTask()"
+  (add)="onAddTask($event)"
+/>
+
+<!-- loop over the computed property that getter returns (like in React we define a variable, compute the value and render in JSX) -->
 
 <section id="tasks">
   <header>

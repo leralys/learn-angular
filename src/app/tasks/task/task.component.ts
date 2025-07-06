@@ -8,8 +8,8 @@ import { type Task } from './task.model';
   styleUrl: './task.component.css',
 })
 export class TaskComponent {
-  @Input({ required: true }) task!: Task;
   // This component *expects* to receive a 'task' object from its parent
+  @Input({ required: true }) task!: Task;
 
   // This is our "loudspeaker" named 'complete'
   // The parent component can listen for this event: (complete)="onCompleteTask($event)" and trigger a method

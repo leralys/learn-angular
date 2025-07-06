@@ -59,3 +59,60 @@
 -->
 <input type="text" id="title" name="title" [(ngModel)]="enteredTitle" />
 ```
+
+---
+
+## 📩 `$event` in Angular
+
+`$event` is a special Angular variable that holds the data passed from an event — either a native event (like a click) or a custom one emitted from a child component.
+
+### ✅ When to use `$event`
+
+Use `$event` **when the event emits data**, so you can pass it into your method.
+
+**Example:**
+
+```ts
+@Output() add = new EventEmitter<string>();
+
+this.add.emit('New Task'); // in child component
+```
+
+```html
+<!-- Parent receives the data -->
+<app-task-form (add)="onAddTask($event)" />
+```
+
+```ts
+onAddTask(taskTitle: string) {
+  console.log(taskTitle); // 'New Task'
+}
+```
+
+---
+
+### ❌ When you don't need `$event`
+
+If the event doesn't send any data (like just a signal), you can skip `$event`.
+
+**Example:**
+
+```ts
+@Output() cancel = new EventEmitter<void>();
+
+this.cancel.emit(); // no payload
+```
+
+```html
+<!-- No need for $event -->
+<app-modal (cancel)="onCancel()" />
+```
+
+---
+
+### 🧠 Summary
+
+| Do I need `$event`? | Child emits data? | Example usage               |
+| ------------------- | ----------------- | --------------------------- |
+| ✅ Yes              | Yes               | `(add)="onAddTask($event)"` |
+| ❌ No               | No                | `(cancel)="onCancel()"`     |

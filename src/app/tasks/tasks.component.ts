@@ -2,6 +2,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { NewTaskComponent } from './new-task/new-task.component';
 import { TaskComponent } from './task/task.component';
+import { type NewTaskData } from './task/task.model';
 
 @Component({
   selector: 'app-tasks',
@@ -54,6 +55,16 @@ export class TasksComponent {
   }
 
   onToggleAddTask() {
+    this.isAddingTask = !this.isAddingTask;
+  }
+
+  onAddTask(data: NewTaskData) {
+    this.tasks.unshift({
+      id: new Date().getTime().toString(),
+      userId: this.userId,
+      ...data,
+    });
+
     this.isAddingTask = !this.isAddingTask;
   }
 }

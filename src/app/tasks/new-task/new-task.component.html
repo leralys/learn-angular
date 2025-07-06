@@ -1,7 +1,13 @@
 <div class="backdrop" (click)="onCancelAddTask()"></div>
 <dialog open>
   <h2>Add Task</h2>
-  <form>
+  <!-- 
+    When using FormsModule, you don't need to manually call preventDefault() on form submission.
+    Angular provides a special event called (ngSubmit), which automatically handles that.
+
+    Use (ngSubmit) to bind to a method in your component — and it will run when the form is submitted.
+  -->
+  <form (ngSubmit)="onSubmit()">
     <p>
       <label for="title">Title</label>
       <!-- 
