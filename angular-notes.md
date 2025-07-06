@@ -36,4 +36,26 @@
 
 ## 🧠 Other Notes
 
-- Angular templates do **not use** standard JS like `.forEach()` or `.map()` directly — use `*ngFor` (for older versions)
+- Angular templates do **not use** standard JS like `.forEach()` or `.map()` directly — use `*ngFor` (for older versions).
+
+---
+
+## 📝 ngModel (Two-Way Binding)
+
+```html
+<!-- 
+  ngModel is an Angular directive that binds an input field to your component's data.
+  It enables two-way data binding — when the user types, the value in your component updates,
+  and if you change the value in code, the input field updates too.
+
+  This is useful when you want to live-track or react to what the user types without manually
+  setting up event listeners or updating the DOM.
+
+  🧠 Coming from React?
+  Think of ngModel like combining `value={state}` and `onChange={e => setState(e.target.value)}` into one.
+  Angular handles both directions automatically.
+
+  ✅ To enable full two-way binding with a variable, use the syntax: [(ngModel)]="enteredTitle"
+-->
+<input type="text" id="title" name="title" [(ngModel)]="enteredTitle" />
+```
