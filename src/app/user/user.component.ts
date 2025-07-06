@@ -8,7 +8,9 @@ import { type User } from './user.model';
   styleUrl: './user.component.css',
 })
 export class UserComponent {
+  //recieves props
   @Input({ required: true }) user!: User;
+  @Input({ required: true }) selected!: boolean;
   @Output() select = new EventEmitter();
 
   get imagePath() {
