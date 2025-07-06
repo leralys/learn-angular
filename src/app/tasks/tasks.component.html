@@ -1,7 +1,13 @@
-<app-new-task
+<!-- OLDER VERSION WITH LISTENER TO THE 'ADD' EVENT EMITTER -->
+<!-- <app-new-task
   *ngIf="isAddingTask"
   (cancel)="onToggleAddTask()"
   (add)="onAddTask($event)"
+/> -->
+<app-new-task
+  *ngIf="isAddingTask"
+  (close)="onToggleAddTask()"
+  [userId]="userId"
 />
 
 <!-- loop over the computed property that getter returns (like in React we define a variable, compute the value and render in JSX) -->
@@ -20,7 +26,9 @@
     
       When the child emits 'complete', we catch it here and call our method 'onCompleteTask'
       The emitted data (the task ID) is passed to the method as $event -->
-      <app-task [task]="task" (complete)="onCompleteTask($event)" />
+      <!-- <app-task [task]="task" (complete)="onCompleteTask($event)" /> -->
+
+      <app-task [task]="task" />
     </li>
   </ul>
 </section>

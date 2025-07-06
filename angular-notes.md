@@ -163,3 +163,111 @@ function Card({ children }) {
 | Slot for content | `children` prop                      | `<ng-content></ng-content>`        |
 | Custom layout    | JSX                                  | Angular template                   |
 | Content passed   | Between `<Component>...</Component>` | Between `<app-comp>...</app-comp>` |
+
+---
+
+## 🛠️ Services in Angular
+
+Services are classes in Angular used to organize and share **logic** or **data** between components.  
+They help keep components lean and focused on display, while services handle things like:
+
+- Fetching data (e.g., from an API)
+- Managing shared state
+- Performing business logic
+
+### ✅ Why use a service?
+
+- Centralize logic in one place (e.g., fetching tasks)
+- Reuse the same logic across multiple components
+- Improve code organization and testability
+
+### 🧠 Think of it like:
+
+- A **service** holds the "brain" (logic/data).
+- A **component** shows the "face" (UI).
+
+### 🧪 Example:
+
+```ts
+// tasks.service.ts
+@Injectable({ providedIn: "root" })
+export class TasksService {
+  private tasks: Task[] = [];
+
+  getTasks() {
+    return this.tasks;
+  }
+
+  addTask(task: Task) {
+    this.tasks.push(task);
+  }
+}
+```
+
+Then in a component:
+
+```ts
+constructor(private tasksService: TasksService) {}
+
+ngOnInit() {
+  this.allTasks = this.tasksService.getTasks();
+}
+```
+
+---
+
+## 💉 Dependency Injection (DI) in Angular
+
+Angular uses Dependency Injection (DI) to provide components with the services they need — such as data handling, business logic, or shared state.
+
+### ✅ Why use Dependency Injection?
+
+- Keeps components lean and focused on the UI
+- Encourages reusable and testable code
+- Automatically handles service creation and lifetime
+
+---
+
+### 🛠️ Manual property assignment (classic OOP style)
+
+```ts
+export class TasksComponent {
+  private tasksService: TasksService;
+
+  constructor(tasksService: TasksService) {
+    // Store the injected service in a property
+    this.tasksService = tasksService;
+  }
+}
+```
+
+- You manually declare a class property (`private tasksService`) and assign it in the constructor.
+
+---
+
+### 🚀 Shortcut: automatic property creation
+
+```ts
+export class TasksComponent {
+  constructor(private tasksService: TasksService) {
+    // Angular auto-creates and assigns the property
+  }
+}
+```
+
+- `private` (or `public`) before the parameter automatically:
+
+  - creates a class property
+  - assigns the injected value to it
+
+- Use `public` if you want to access it in the template (e.g., `{{ tasksService.tasks }}`)
+
+---
+
+### 🧠 Key points to remember
+
+| Concept               | Description                                                  |
+| --------------------- | ------------------------------------------------------------ |
+| DI                    | Angular provides services your component needs               |
+| Constructor injection | You list services in the constructor, Angular passes them in |
+| `private`/`public`    | Automatically creates and assigns the class property         |

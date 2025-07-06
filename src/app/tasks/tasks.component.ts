@@ -2,7 +2,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { NewTaskComponent } from './new-task/new-task.component';
 import { TaskComponent } from './task/task.component';
-import { type NewTaskData } from './task/task.model';
+import { TasksService } from './tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -18,53 +18,51 @@ export class TasksComponent {
 
   isAddingTask = false;
 
-  // state
-  tasks = [
-    {
-      id: 't1',
-      userId: 'u1',
-      title: 'Master Angular',
-      summary:
-        'Learn all the basic and advanced features of Angular & how to apply them.',
-      dueDate: '2025-12-31',
-    },
-    {
-      id: 't2',
-      userId: 'u3',
-      title: 'Build first prototype',
-      summary: 'Build a first prototype of the online shop website',
-      dueDate: '2024-05-31',
-    },
-    {
-      id: 't3',
-      userId: 'u3',
-      title: 'Prepare issue template',
-      summary:
-        'Prepare and describe an issue template which will help with project management',
-      dueDate: '2024-06-15',
-    },
-  ];
+  // ✅ Dependency Injection in Angular
+  // You declare what services (dependencies) your class needs by listing them as parameters in the constructor.
+  // Angular automatically creates and provides those services when the component is initialized.
 
-  // getter - computed property
-  get selectedUserTasks() {
-    return this.tasks.filter((task) => task.userId === this.userId);
-  }
+  // 🟡 Manual property setup (verbose, but clear OOP style)
+  // private tasksService: TasksService;
 
-  onCompleteTask(id: string) {
-    this.tasks = this.tasks.filter((task) => task.id !== id);
+  // constructor(tasksService: TasksService) {
+  //   // Store the injected service in a class property so it's accessible in other methods
+  //   this.tasksService = tasksService;
+  // }
+
+  // ✅ Shortcut version — Angular will auto-create the class property for you
+  // This does exactly the same thing as above, but in one line
+  // Adding `private` (or `public`) in the constructor parameter creates the property automatically
+  // - Use `private` if you only need it inside the class
+  // - Use `public` if you want to access it (for example from the template)
+  constructor(private tasksService: TasksService) {
+    // no need to manually assign — Angular does it for you
   }
 
   onToggleAddTask() {
     this.isAddingTask = !this.isAddingTask;
   }
 
-  onAddTask(data: NewTaskData) {
-    this.tasks.unshift({
-      id: new Date().getTime().toString(),
-      userId: this.userId,
-      ...data,
-    });
-
-    this.isAddingTask = !this.isAddingTask;
+  // ✅ Getter = computed property (like a read-only function)
+  // - Looks like a property when used (no parentheses), but runs logic when accessed
+  // - Useful for returning dynamic or filtered data from other sources (like a service or state)
+  // - Automatically updates when re-evaluated during Angular's change detection
+  get selectedUserTasks() {
+    return this.tasksService.getUserTasks(this.userId);
   }
+
+  // --- OLD CODE BEFORE CREATING THE TASKS SERVICE ---
+  // onCompleteTask(id: string) {
+  //   this.tasks = this.tasks.filter((task) => task.id !== id);
+  // }
+
+  // onAddTask(data: NewTaskData) {
+  //   this.tasks.unshift({
+  //     id: new Date().getTime().toString(),
+  //     userId: this.userId,
+  //     ...data,
+  //   });
+
+  //   this.isAddingTask = !this.isAddingTask;
+  // }
 }

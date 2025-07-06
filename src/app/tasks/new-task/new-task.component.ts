@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { type NewTaskData } from '../task/task.model';
+import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-new-task',
@@ -9,6 +9,11 @@ import { type NewTaskData } from '../task/task.model';
   styleUrl: './new-task.component.css',
 })
 export class NewTaskComponent {
+  @Input({ required: true }) userId!: string;
+  // custom events
+  @Output() close = new EventEmitter<void>();
+  // @Output() add = new EventEmitter<NewTaskData>();
+
   // state
 
   // Newer Angular syntax using signals (Angular 17+)
@@ -21,20 +26,32 @@ export class NewTaskComponent {
   enteredSummary = '';
   enteredDate = '';
 
-  // custom events
-  @Output() cancel = new EventEmitter<void>();
+  // Using Angular's `inject()` function to get an instance of TasksService
+  // It is an alternative to the constructor-based approach
+  // `TasksService` acts as the injection token — a key that tells Angular what to provide
+  // This is an alternative to injecting via constructor and works inside standalone functions or properties
+  private tasksService = inject(TasksService);
 
-  @Output() add = new EventEmitter<NewTaskData>();
-
-  onCancelAddTask() {
-    this.cancel.emit();
+  onCancel() {
+    this.close.emit();
   }
 
   onSubmit() {
-    this.add.emit({
-      title: this.enteredTitle,
-      summary: this.enteredSummary,
-      dueDate: this.enteredDate,
-    });
+    // this.add.emit({
+    //   title: this.enteredTitle,
+    //   summary: this.enteredSummary,
+    //   dueDate: this.enteredDate,
+    // });
+
+    this.tasksService.addTask(
+      {
+        title: this.enteredTitle,
+        summary: this.enteredSummary,
+        dueDate: this.enteredDate,
+      },
+      this.userId
+    );
+
+    this.close.emit();
   }
 }
