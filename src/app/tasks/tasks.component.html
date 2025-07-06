@@ -6,7 +6,7 @@
   <ul>
     <!-- loop over the computed property that getter returns (like in React we define a variable, compute the value and render in JSX) -->
     <li *ngFor="let task of selectedUserTasks">
-      <app-task />
+      <app-task [task]="task" />
     </li>
   </ul>
 </section>
