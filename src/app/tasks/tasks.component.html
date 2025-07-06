@@ -6,7 +6,13 @@
   <ul>
     <!-- loop over the computed property that getter returns (like in React we define a variable, compute the value and render in JSX) -->
     <li *ngFor="let task of selectedUserTasks">
-      <app-task [task]="task" />
+      <!-- 
+      - We pass the 'task' data to the child component using [task]
+      - We listen to the child's 'complete' event using (complete)
+    
+      When the child emits 'complete', we catch it here and call our method 'onCompleteTask'
+      The emitted data (the task ID) is passed to the method as $event -->
+      <app-task [task]="task" (complete)="onCompleteTask($event)" />
     </li>
   </ul>
 </section>

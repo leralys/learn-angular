@@ -2,5 +2,11 @@
   <h2>{{ task.title }}</h2>
   <time>{{ task.dueDate }}</time>
   <p>{{ task.summary }}</p>
-  <p class="actions"><button>Complete</button></p>
+  <p class="actions">
+    <!-- 
+      When this button is clicked, it calls the onCompleteTask() method in the child component.
+      That method emits an event (complete) to the parent and sends the task ID with it.
+    -->
+    <button (click)="onCompleteTask()">Complete</button>
+  </p>
 </article>
