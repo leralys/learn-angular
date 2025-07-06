@@ -1,9 +1,9 @@
-<app-new-task *ngIf="isAddingTask" />
+<app-new-task *ngIf="isAddingTask" (cancel)="onToggleAddTask()" />
 
 <section id="tasks">
   <header>
     <h2>{{ name }}'s Tasks</h2>
-    <menu (click)="onStartAddTask()"><button>Add Tasks</button></menu>
+    <menu (click)="onToggleAddTask()"><button>Add Tasks</button></menu>
   </header>
   <ul>
     <!-- loop over the computed property that getter returns (like in React we define a variable, compute the value and render in JSX) -->
