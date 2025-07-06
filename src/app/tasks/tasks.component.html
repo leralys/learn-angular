@@ -4,10 +4,9 @@
     <menu><button>Add Tasks</button></menu>
   </header>
   <ul>
-    <li><app-task /></li>
-    <li><app-task /></li>
-    <li><app-task /></li>
-    <li><app-task /></li>
-    <li><app-task /></li>
+    <!-- loop over the computed property that getter returns (like in React we define a variable, compute the value and render in JSX) -->
+    <li *ngFor="let task of selectedUserTasks">
+      <app-task />
+    </li>
   </ul>
 </section>

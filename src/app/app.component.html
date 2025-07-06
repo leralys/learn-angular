@@ -25,8 +25,14 @@
   <p>Select a user to see their tasks</p>
   } -->
 
-  <!-- FOR OLDER ANGULAR VERSIONS  -->
-  <app-tasks *ngIf="selectedUser; else fallback" [name]="selectedUser!.name" />
+  <!-- FOR OLDER ANGULAR VERSIONS  
+  in the square brackets - property binding (this is how we pass the props to the component)
+  -->
+  <app-tasks
+    *ngIf="selectedUser; else fallback"
+    [name]="selectedUser!.name"
+    [userId]="selectedUser!.id"
+  />
   <ng-template #fallback
     ><p id="fallback">Select a user to see their tasks</p></ng-template
   >
