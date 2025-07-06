@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
 
 import { DUMMY_USERS } from './dummy-users';
 import { HeaderComponent } from './header/header.component';
@@ -10,7 +11,7 @@ import { UserComponent } from './user/user.component';
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [HeaderComponent, UserComponent, TasksComponent],
+  imports: [HeaderComponent, UserComponent, TasksComponent, NgFor, NgIf], // unlocks the usage of the structural directives inside the component
 })
 export class AppComponent {
   users = DUMMY_USERS;
