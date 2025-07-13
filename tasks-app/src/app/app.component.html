@@ -1,0 +1,43 @@
+<app-header />
+
+<main>
+  <ul id="users">
+    <!-- users referes to a preperty of the  component class that holds the data (state)-->
+
+    <!-- FOR ANGULAR 17 OR HIGHER -->
+    <!-- track is like key in React -->
+    <!-- @for (user of users; track user.id){
+    <li>
+      <app-user [user]="user" (select)="onSelectUser($event)" />
+    </li>
+    } -->
+
+    <!-- FOR OLDER ANGULAR VERSIONS  -->
+    <li *ngFor="let user of users">
+      <app-user
+        [user]="user"
+        [selected]="user.id === selectedUserId"
+        (select)="onSelectUser($event)"
+      />
+    </li>
+  </ul>
+
+  <!-- FOR ANGULAR 17 OR HIGHER -->
+  <!-- @if(selectedUser){
+  <app-tasks [name]="selectedUser.name" />
+  } @else {
+  <p>Select a user to see their tasks</p>
+  } -->
+
+  <!-- FOR OLDER ANGULAR VERSIONS  
+  in the square brackets - property binding (this is how we pass the props to the component)
+  -->
+  <app-tasks
+    *ngIf="selectedUser; else fallback"
+    [name]="selectedUser!.name"
+    [userId]="selectedUser!.id"
+  />
+  <ng-template #fallback
+    ><p id="fallback">Select a user to see their tasks</p></ng-template
+  >
+</main>

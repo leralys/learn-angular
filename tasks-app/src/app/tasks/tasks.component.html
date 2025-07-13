@@ -1,0 +1,34 @@
+<!-- OLDER VERSION WITH LISTENER TO THE 'ADD' EVENT EMITTER -->
+<!-- <app-new-task
+  *ngIf="isAddingTask"
+  (cancel)="onToggleAddTask()"
+  (add)="onAddTask($event)"
+/> -->
+<app-new-task
+  *ngIf="isAddingTask"
+  (close)="onToggleAddTask()"
+  [userId]="userId"
+/>
+
+<!-- loop over the computed property that getter returns (like in React we define a variable, compute the value and render in JSX) -->
+
+<section id="tasks">
+  <header>
+    <h2>{{ name }}'s Tasks</h2>
+    <menu (click)="onToggleAddTask()"><button>Add Tasks</button></menu>
+  </header>
+  <ul>
+    <!-- loop over the computed property that getter returns (like in React we define a variable, compute the value and render in JSX) -->
+    <li *ngFor="let task of selectedUserTasks">
+      <!-- 
+      - We pass the 'task' data to the child component using [task]
+      - We listen to the child's 'complete' event using (complete)
+    
+      When the child emits 'complete', we catch it here and call our method 'onCompleteTask'
+      The emitted data (the task ID) is passed to the method as $event -->
+      <!-- <app-task [task]="task" (complete)="onCompleteTask($event)" /> -->
+
+      <app-task [task]="task" />
+    </li>
+  </ul>
+</section>

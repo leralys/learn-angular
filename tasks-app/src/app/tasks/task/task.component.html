@@ -1,0 +1,15 @@
+<app-card>
+  <article>
+    <h2>{{ task.title }}</h2>
+    <!-- | is pipe symbol, date is pipe provided by Angular that formats dates -->
+    <time>{{ task.dueDate | date : "fullDate" }}</time>
+    <p>{{ task.summary }}</p>
+    <p class="actions">
+      <!-- 
+      When this button is clicked, it calls the onCompleteTask() method in the child component.
+      That method emits an event (complete) to the parent and sends the task ID with it.
+    -->
+      <button (click)="onCompleteTask()">Complete</button>
+    </p>
+  </article>
+</app-card>

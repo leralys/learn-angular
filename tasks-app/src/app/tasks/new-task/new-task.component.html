@@ -1,0 +1,50 @@
+<div class="backdrop" (click)="onCancel()"></div>
+<dialog open>
+  <h2>Add Task</h2>
+  <!-- 
+    When using FormsModule, you don't need to manually call preventDefault() on form submission.
+    Angular provides a special event called (ngSubmit), which automatically handles that.
+
+    Use (ngSubmit) to bind to a method in your component — and it will run when the form is submitted.
+  -->
+  <form (ngSubmit)="onSubmit()">
+    <p>
+      <label for="title">Title</label>
+      <!-- 
+        ngModel is an Angular directive that connects the input field to your component's data.
+        It enables two-way data binding — any change in the input updates the component, and vice versa.
+        Useful for live-tracking what the user types without manually listening to events.
+
+        🧠 Coming from React?
+        Think of ngModel like combining `value={state}` and `onChange={setState}` into one.
+        Angular handles both automatically, so you don't need to write a change handler.
+       -->
+      <input type="text" id="title" name="title" [(ngModel)]="enteredTitle" />
+    </p>
+
+    <p>
+      <label for="summary">Summary</label>
+      <textarea
+        id="summary"
+        rows="5"
+        name="summary"
+        [(ngModel)]="enteredSummary"
+      ></textarea>
+    </p>
+
+    <p>
+      <label for="due-date">Due Date</label>
+      <input
+        type="date"
+        id="due-date"
+        name="due-date"
+        [(ngModel)]="enteredDate"
+      />
+    </p>
+
+    <p class="actions">
+      <button type="button" (click)="onCancel()">Cancel</button>
+      <button type="submit">Create</button>
+    </p>
+  </form>
+</dialog>
