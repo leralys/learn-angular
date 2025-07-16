@@ -1,10 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import type { InvestmentInput } from './investment-input.model';
 import type { InvestmentResult } from './investment-result.model';
 
 @Injectable({ providedIn: 'root' })
 export class InvestmentService {
-  resultsData?: InvestmentResult[] | undefined;
+  // resultsData?: InvestmentResult[] | undefined; // // same as below, but:
+  // // Use when you don’t need reactivity (i.e., no automatic UI updates when the value changes).
+  // // You’re planning to manually set this later (e.g., in ngOnInit() or from a parent input).
+  resultsData = signal<InvestmentResult[] | undefined>(undefined);
+  //Use signals when:
+  // •	You want reactivity: e.g. the component should automatically update when resultsData() changes.
+  // •	You’re using Angular’s new signals-based reactivity model instead of RxJS or manual change detection.
 
   calculateInvestmentResults(data: InvestmentInput) {
     const { initialInvestment, duration, expectedReturn, annualInvestment } =
@@ -28,7 +34,7 @@ export class InvestmentService {
       });
     }
 
-    // this.resultsData.set(annualData);
-    this.resultsData = annualData;
+    // this.resultsData = annualData;
+    this.resultsData.set(annualData); // for a signal
   }
 }
