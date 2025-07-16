@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { InvestmentService } from '../investment.service';
+import { InvestmentService } from '../investments/investment.service';
 
 @Component({
   selector: 'app-user-input',
